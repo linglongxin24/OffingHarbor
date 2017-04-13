@@ -2,7 +2,7 @@ package jp.funnything.offing_harbor;
 
 public class ConvertConfig {
     public enum ConvertPrefix {
-        NONE, MEMBER, UNDERSCORE;
+        ORIGINAL,NONE, MEMBER, UNDERSCORE;
 
         public boolean willModify() {
             return this != NONE;
@@ -29,7 +29,7 @@ public class ConvertConfig {
     public ConvertConfig() {
         // default values
 
-        prefix = ConvertPrefix.NONE;
+        prefix = ConvertPrefix.ORIGINAL;
         format = ConvertFormat.PLAIN;
         visibility = Visibility.PRIVATE;
         useSmartType = false;

@@ -19,6 +19,7 @@ public class ConvertConfigDialog extends DialogWrapper {
     private VirtualFile mLayoutFile;
     private ConvertConfigRepository mRepository;
     //
+    private JRadioButton mPrefixOriginalRadioButton;
     private JRadioButton mPrefixAsIsRadioButton;
     private JRadioButton mPrefixMemberRadioButton;
     private JRadioButton mPrefixUnderscoreRadioButton;
@@ -59,15 +60,18 @@ public class ConvertConfigDialog extends DialogWrapper {
         prefixBox.setAlignmentY(Component.TOP_ALIGNMENT);
         prefixBox.setBorder(IdeBorderFactory.createTitledBorder("Field Name Prefix", true));
 
+        mPrefixOriginalRadioButton = new JRadioButton("Original");
         mPrefixAsIsRadioButton = new JRadioButton("As is (None)");
         mPrefixMemberRadioButton = new JRadioButton("m");
         mPrefixUnderscoreRadioButton = new JRadioButton("_ (underscore)");
 
         ButtonGroup prefixButtonGroup = new ButtonGroup();
+        prefixButtonGroup.add(mPrefixOriginalRadioButton);
         prefixButtonGroup.add(mPrefixAsIsRadioButton);
         prefixButtonGroup.add(mPrefixMemberRadioButton);
         prefixButtonGroup.add(mPrefixUnderscoreRadioButton);
 
+        prefixBox.add(mPrefixOriginalRadioButton);
         prefixBox.add(mPrefixAsIsRadioButton);
         prefixBox.add(mPrefixMemberRadioButton);
         prefixBox.add(mPrefixUnderscoreRadioButton);
@@ -170,7 +174,9 @@ public class ConvertConfigDialog extends DialogWrapper {
     }
 
     private ConvertConfig.ConvertPrefix getPrefix() {
-        if (mPrefixAsIsRadioButton.isSelected()) {
+        if (mPrefixOriginalRadioButton.isSelected()) {
+            return ConvertConfig.ConvertPrefix.ORIGINAL;
+        } else if (mPrefixAsIsRadioButton.isSelected()) {
             return ConvertConfig.ConvertPrefix.NONE;
         } else if (mPrefixMemberRadioButton.isSelected()) {
             return ConvertConfig.ConvertPrefix.MEMBER;
@@ -183,6 +189,9 @@ public class ConvertConfigDialog extends DialogWrapper {
 
     private void setPrefix(ConvertConfig.ConvertPrefix prefix) {
         switch (prefix) {
+            case ORIGINAL:
+                mPrefixOriginalRadioButton.setSelected(true);
+                break;
             case NONE:
                 mPrefixAsIsRadioButton.setSelected(true);
                 break;

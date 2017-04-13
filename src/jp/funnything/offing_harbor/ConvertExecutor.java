@@ -42,6 +42,8 @@ public class ConvertExecutor {
 
         public String getJavaSymbolName(ConvertConfig config) {
             switch (config.prefix) {
+                case ORIGINAL:
+                    return id;
                 case NONE:
                     return snakeCaseToCamelCase(id);
                 case MEMBER:
